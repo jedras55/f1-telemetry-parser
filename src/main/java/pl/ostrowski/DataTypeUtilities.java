@@ -8,6 +8,7 @@ import java.util.Set;
 /** @author miguelangel.garciar */
 public abstract class DataTypeUtilities {
 
+
   public static short convert_uint16(short s) {
     // s = reorder(s);
     // return (short) (s & 0xffff);
