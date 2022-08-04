@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.PitStatus;
+import enums.PitStatus;
 
 public class PitStatusFactory {
   public static PitStatus createPitStatus(short pitStatusValue) {

@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.Weather;
+import enums.Weather;
 
 public class WeatherFactory {
   public static Weather createWeather(short weatherValue) {

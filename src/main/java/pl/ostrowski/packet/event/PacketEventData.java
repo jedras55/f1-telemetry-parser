@@ -20,7 +20,6 @@ public class PacketEventData extends Packet {
             StandardCharsets.UTF_8);
     eventType = EventType.valueOf(eventStringCode);
     queryEvent(content);
-    System.out.println("elo");
   }
 
   private void queryEvent(byte[] content) {

@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import lombok.Getter;
 import pl.ostrowski.DataTypeUtilities;
-import pl.ostrowski.enums.InfringementType;
-import pl.ostrowski.enums.PenaltyType;
+import enums.InfringementType;
+import enums.PenaltyType;
 import pl.ostrowski.factory.InfringementTypeFactory;
 import pl.ostrowski.factory.PenaltyTypeFactory;
 

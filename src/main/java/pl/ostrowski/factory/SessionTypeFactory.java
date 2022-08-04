@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.SessionType;
+import enums.SessionType;
 
 public class SessionTypeFactory {
   public static SessionType createSessionType(short sessionTypeValue) {

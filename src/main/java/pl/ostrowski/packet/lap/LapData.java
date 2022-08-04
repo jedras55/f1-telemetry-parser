@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import lombok.Getter;
 import pl.ostrowski.DataTypeUtilities;
-import pl.ostrowski.enums.DriverStatus;
-import pl.ostrowski.enums.PitStatus;
-import pl.ostrowski.enums.ResultStatus;
-import pl.ostrowski.enums.Sector;
+import enums.DriverStatus;
+import enums.PitStatus;
+import enums.ResultStatus;
+import enums.Sector;
 import pl.ostrowski.factory.BooleanFactory;
 import pl.ostrowski.factory.DriverStatusFactory;
 import pl.ostrowski.factory.PitStatusFactory;
@@ -17,72 +17,78 @@ import pl.ostrowski.factory.ResultStatusFactory;
 import pl.ostrowski.factory.SectorFactory;
 
 public class LapData {
-  public static final int SIZE = 53;
-  @Getter private final double lastLapTime;
-  @Getter private final double currentLapTime;
-  @Getter private final int sector1Time;
-  @Getter private final int sector2Time;
-  @Getter private final double bestLapTime;
-  @Getter private final int bestLapNum;
-  @Getter private final int bestLapSector1Time;
-  @Getter private final int bestLapSector2Time;
-  @Getter private final int bestLapSector3Time;
-  @Getter private final int bestOverallSector1Time;
-  @Getter private final int bestOverallSector1LapNum;
-  @Getter private final int bestOverallSector2Time;
-  @Getter private final int bestOverallSector2LapNum;
-  @Getter private final int bestOverallSector3Time;
-  @Getter private final int bestOverallSector3LapNum;
+  public static final int SIZE = 43;
+
+  @Getter private final Long lastLapTimeInMS;
+  @Getter private final Long currentLapTimeInMS;
+  @Getter private final int sector1TimeInMS;
+  @Getter private final int sector2TimeInMS;
   @Getter private final double lapDistance;
+
   @Getter private final double totalDistance;
+
   @Getter private final double safetyCarDelta;
   @Getter private final int carPosition;
   @Getter private final int currentLapNum;
   @Getter private final PitStatus pitStatus;
+  @Getter private final int numPitStops;
   @Getter private final Sector sector;
   @Getter private final boolean currentLapInvalid;
   @Getter private final int penalties;
+  @Getter private final int warnings;
+  @Getter private final int numUnservedDriveThroughPens;
+  @Getter private final int numUnservedStopGoPens;
   @Getter private final int gridPosition;
   @Getter private final DriverStatus driverStatus;
+
   @Getter private final ResultStatus resultStatus;
+
+  @Getter private final boolean pitLaneTimerActive;
+  @Getter private final int pitLaneTimeInLaneInMS;
+  @Getter private final int pitStopTimerInMS;
+  @Getter private final boolean pitStopShouldServePen;
 
   public LapData(byte[] content) {
     ByteBuffer bb = ByteBuffer.wrap(content);
     bb.order(ByteOrder.LITTLE_ENDIAN);
 
-    lastLapTime = DataTypeUtilities.convert_float(bb.getFloat()); // 4
-    currentLapTime = DataTypeUtilities.convert_float(bb.getFloat()); // 4
-    sector1Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    sector2Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestLapTime = DataTypeUtilities.convert_float(bb.getFloat()); // 4
-    bestLapNum = DataTypeUtilities.convert_uint8(bb.get()); // 1
-    bestLapSector1Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestLapSector2Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestLapSector3Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestOverallSector1Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestOverallSector1LapNum = DataTypeUtilities.convert_uint8(bb.get()); // 1
-    bestOverallSector2Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestOverallSector2LapNum = DataTypeUtilities.convert_uint8(bb.get()); // 1
-    bestOverallSector3Time = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
-    bestOverallSector3LapNum = DataTypeUtilities.convert_uint8(bb.get()); // 1
+    lastLapTimeInMS = DataTypeUtilities.convert_uint32(bb.getInt()); // 4
+    currentLapTimeInMS = DataTypeUtilities.convert_uint32(bb.getInt()); // 4
+    sector1TimeInMS = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
+    sector2TimeInMS = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
     lapDistance = DataTypeUtilities.convert_float(bb.getFloat()); // 4
+
     totalDistance = DataTypeUtilities.convert_float(bb.getFloat()); // 4
+
     safetyCarDelta = DataTypeUtilities.convert_float(bb.getFloat()); // 4
     carPosition = DataTypeUtilities.convert_uint8(bb.get()); // 1
     currentLapNum = DataTypeUtilities.convert_uint8(bb.get()); // 1
     pitStatus = PitStatusFactory.createPitStatus(DataTypeUtilities.convert_uint8(bb.get())); // 1
+    numPitStops = DataTypeUtilities.convert_uint8(bb.get()); // 1
     sector = SectorFactory.createSector(DataTypeUtilities.convert_uint8(bb.get())); // 1
     currentLapInvalid =
         BooleanFactory.createBoolean(DataTypeUtilities.convert_uint8(bb.get())); // 1
     penalties = DataTypeUtilities.convert_uint8(bb.get()); // 1
+    warnings = DataTypeUtilities.convert_uint8(bb.get()); // 1
+    numUnservedDriveThroughPens = DataTypeUtilities.convert_uint8(bb.get()); // 1
+    numUnservedStopGoPens = DataTypeUtilities.convert_uint8(bb.get()); // 1
     gridPosition = DataTypeUtilities.convert_uint8(bb.get()); // 1
     driverStatus =
         DriverStatusFactory.createDriverStatus(DataTypeUtilities.convert_uint8(bb.get())); // 1
+
     resultStatus =
         ResultStatusFactory.createResultStatus(DataTypeUtilities.convert_uint8(bb.get())); // 1
+
+    pitLaneTimerActive =
+        BooleanFactory.createBoolean(DataTypeUtilities.convert_uint8(bb.get())); // 1
+    pitLaneTimeInLaneInMS = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
+    pitStopTimerInMS = DataTypeUtilities.convert_uint16(bb.getShort()); // 2
+    pitStopShouldServePen =
+        BooleanFactory.createBoolean(DataTypeUtilities.convert_uint8(bb.get())); // 1
   }
 
-  private String formatSeconds(double seconds, boolean large) {
+  private String formatSeconds(double ms, boolean large) {
+    double seconds = ms / 1000;
     if (seconds <= 0 || seconds == Float.POSITIVE_INFINITY) {
       return "";
     }
@@ -97,22 +103,18 @@ public class LapData {
   }
 
   public String getLastLapTime(boolean large) {
-    return formatSeconds(lastLapTime, large);
+    return formatSeconds(lastLapTimeInMS, large);
   }
 
   public String getCurrentLapTime(boolean large) {
-    return formatSeconds(currentLapTime, large);
-  }
-
-  public String getBestLapTime(boolean large) {
-    return formatSeconds(bestLapTime, large);
+    return formatSeconds(currentLapTimeInMS, large);
   }
 
   public String getSector1Time(boolean large) {
     if (sector == Sector.FIRST) {
-      return formatSeconds(currentLapTime, large);
+      return formatSeconds(currentLapTimeInMS, large);
     } else if (sector == Sector.SECOND || sector == Sector.THIRD) {
-      return formatSeconds(this.sector1Time, large);
+      return formatSeconds(this.sector1TimeInMS, large);
     } else {
       return null;
     }
@@ -120,10 +122,10 @@ public class LapData {
 
   public String getSector2Time(boolean large) {
     if (sector == Sector.SECOND) {
-      double sector2 = currentLapTime - sector1Time;
+      double sector2 = currentLapTimeInMS - sector1TimeInMS;
       return formatSeconds(sector2, large);
     } else if (sector == Sector.THIRD) {
-      return formatSeconds(this.sector2Time, large);
+      return formatSeconds(this.sector2TimeInMS, large);
     } else {
       return null;
     }
@@ -131,7 +133,7 @@ public class LapData {
 
   public String getSector3Time(boolean large) {
     if (sector == Sector.THIRD) {
-      double sector3 = currentLapTime - sector1Time - sector2Time;
+      double sector3 = currentLapTimeInMS - sector1TimeInMS - sector2TimeInMS;
       return formatSeconds(sector3, large);
     } else {
       return null;
@@ -140,7 +142,7 @@ public class LapData {
 
   public double getSector3Float() {
     if (sector == Sector.THIRD) {
-      return currentLapTime - sector1Time - sector2Time;
+      return currentLapTimeInMS - sector1TimeInMS - sector2TimeInMS;
     } else {
       return 0f;
     }
@@ -150,7 +152,6 @@ public class LapData {
   public String toString() {
     String ret = "Last lap time: " + getLastLapTime(true) + "\n";
     ret += "Current lap time: " + getCurrentLapTime(true) + "\n";
-    ret += "Best lap time: " + getBestLapTime(true) + "\n";
     ret += "Sector 1 time: " + getSector1Time(true) + "\n";
     ret += "Sector 2 time: " + getSector2Time(true) + "\n";
     ret += "Lap distance: " + lapDistance + " m\n";

@@ -3,12 +3,14 @@ package pl.ostrowski.packet.lap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
 import pl.ostrowski.packet.Packet;
 
 public class PacketLapData extends Packet {
 
-  public static int LENGTH = 1166;
-  public List<LapData> allCarsLapData = new ArrayList<>();
+  public static int LENGTH = 970;
+
+  @Getter private final List<LapData> allCarsLapData = new ArrayList<>();
 
   public PacketLapData(byte[] content) {
     super(Arrays.copyOfRange(content, 0, Packet.HEADER_SIZE));

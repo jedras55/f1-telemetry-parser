@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.Era;
+import enums.Era;
 
 public class EraFactory {
   public static Era createSessionType(short eraValue) {

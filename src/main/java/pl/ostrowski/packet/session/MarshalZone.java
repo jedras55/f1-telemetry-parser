@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import lombok.Getter;
 import pl.ostrowski.DataTypeUtilities;
-import pl.ostrowski.enums.ZoneFlag;
+import enums.ZoneFlag;
 import pl.ostrowski.factory.ZoneFlagFactory;
 
 public final class MarshalZone {

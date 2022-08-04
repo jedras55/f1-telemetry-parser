@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.DriverStatus;
+import enums.DriverStatus;
 
 public class DriverStatusFactory {
   public static DriverStatus createDriverStatus(short driverStatusValue) {

@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.SafetyCar;
+import enums.SafetyCar;
 
 public class SafetyCarFactory {
   public static SafetyCar createSafetyCar(short safetyCarValue) {

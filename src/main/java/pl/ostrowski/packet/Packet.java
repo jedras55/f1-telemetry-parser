@@ -1,11 +1,11 @@
 package pl.ostrowski.packet;
 
+import enums.PacketType;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import lombok.Getter;
 import pl.ostrowski.DataTypeUtilities;
-import pl.ostrowski.enums.PacketType;
 import pl.ostrowski.factory.PacketTypeFactory;
 import pl.ostrowski.util.TimePrinter;
 
@@ -15,7 +15,7 @@ public class Packet {
   public static int HEADER_SIZE = 24;
 
   // Identifier for the frame the data was retrieved on
-  public final Long frameIdentifier;
+  @Getter private final Long frameIdentifier;
 
   // Packet Format
   @Getter private final int packetFormat;
@@ -73,7 +73,7 @@ public class Packet {
         + packetVersion
         + " version. Session UID is "
         + sessionUID
-        + " ant started "
+        + " and started "
         + TimePrinter.printFormattedSeconds((int) sessionTime)
         + " ago. Player car index is "
         + playerCarIndex

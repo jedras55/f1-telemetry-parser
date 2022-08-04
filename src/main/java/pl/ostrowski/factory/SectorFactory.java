@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.Sector;
+import enums.Sector;
 
 public class SectorFactory {
   public static Sector createSector(short sectorValue) {

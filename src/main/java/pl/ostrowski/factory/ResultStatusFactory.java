@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.ResultStatus;
+import enums.ResultStatus;
 
 public class ResultStatusFactory {
   public static ResultStatus createResultStatus(short resultStatusValue) {

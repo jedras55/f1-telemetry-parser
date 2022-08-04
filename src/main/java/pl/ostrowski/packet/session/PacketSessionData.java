@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import pl.ostrowski.DataTypeUtilities;
-import pl.ostrowski.enums.Era;
-import pl.ostrowski.enums.SafetyCar;
-import pl.ostrowski.enums.SessionType;
-import pl.ostrowski.enums.Track;
-import pl.ostrowski.enums.Weather;
-import pl.ostrowski.enums.ZoneFlag;
+import enums.Era;
+import enums.SafetyCar;
+import enums.SessionType;
+import enums.Track;
+import enums.Weather;
+import enums.ZoneFlag;
 import pl.ostrowski.factory.BooleanFactory;
 import pl.ostrowski.factory.EraFactory;
 import pl.ostrowski.factory.SafetyCarFactory;
@@ -28,7 +28,7 @@ public class PacketSessionData extends Packet {
   public static final int LENGTH = 227;
   private static final int PACKET_SIZE_TO_MARSHAL_ZONES = 19;
   private static final int MARSHAL_ZONES_NUMBER = 21;
-  private static final int WEATHER_FORECAST_NUMBER = 20;
+  private static final int WEATHER_FORECAST_NUMBER = 56;
   private static final int PACKET_SIZE_TO_WEATHER_FORECAST =
       PACKET_SIZE_TO_MARSHAL_ZONES + MARSHAL_ZONES_NUMBER * MarshalZone.SIZE + 3;
   @Getter private final Weather weather;

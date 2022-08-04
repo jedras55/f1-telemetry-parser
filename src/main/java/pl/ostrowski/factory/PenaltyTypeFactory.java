@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.PenaltyType;
+import enums.PenaltyType;
 
 public class PenaltyTypeFactory {
   public static PenaltyType createPenaltyType(short penaltyValue) {

@@ -7,24 +7,17 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import pl.ostrowski.packet.Packet;
 import pl.ostrowski.packet.PacketFactory;
-import pl.ostrowski.packet.event.PacketEventData;
-import pl.ostrowski.packet.lap.PacketLapData;
-import pl.ostrowski.packet.motion.PacketMotionData;
-import pl.ostrowski.packet.session.PacketSessionData;
 
 public class EchoServer extends Thread {
 
-  public static PacketSessionData packetSessionData = null;
-  public static PacketMotionData packetMotionData = null;
-  public static PacketLapData packetLapData = null;
-  public static PacketEventData packetEventData = null;
   private final byte[] buf = new byte[2048];
-  private final PacketStorage packetStorage;
+  private final PacketRepository packetRepository;
+
   private DatagramSocket socket;
   private boolean running;
 
-  public EchoServer(PacketStorage packetStorage1) {
-    packetStorage = packetStorage1;
+  public EchoServer(PacketRepository packetRepository) {
+    this.packetRepository = packetRepository;
     try {
       socket = new DatagramSocket(20777);
     } catch (SocketException e) {
@@ -55,22 +48,11 @@ public class EchoServer extends Thread {
   }
 
   public synchronized void newPacket(byte[] content) {
+    String clientId = "kacper_zabaglo";
+
     Packet packet = PacketFactory.getPacket(content);
     if (packet != null) {
-      if (packet instanceof PacketSessionData) {
-        packetSessionData = (PacketSessionData) packet;
-        packetStorage.setPacketSessionData((PacketSessionData) packet);
-      } else if (packet instanceof PacketMotionData) {
-        packetMotionData = (PacketMotionData) packet;
-        packetStorage.setPacketMotionData((PacketMotionData) packet);
-      } else if (packet instanceof PacketLapData) {
-        packetLapData = (PacketLapData) packet;
-        packetStorage.setPacketLapData((PacketLapData) packet);
-
-      } else if (packet instanceof PacketEventData) {
-        packetEventData = (PacketEventData) packet;
-        packetStorage.setPacketEventData((PacketEventData) packet);
-      }
+      packetRepository.savePacket(packet, clientId);
     }
   }
 }

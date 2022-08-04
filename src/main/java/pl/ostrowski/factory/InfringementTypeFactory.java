@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.InfringementType;
+import enums.InfringementType;
 
 public class InfringementTypeFactory {
   public static InfringementType createInfringementType(short infringementTypeValue) {

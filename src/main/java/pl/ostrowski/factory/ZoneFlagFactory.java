@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.ZoneFlag;
+import enums.ZoneFlag;
 
 public class ZoneFlagFactory {
   public static ZoneFlag createZoneFlag(short zoneFlagValue) {

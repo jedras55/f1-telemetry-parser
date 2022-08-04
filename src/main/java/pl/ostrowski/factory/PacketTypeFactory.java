@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.PacketType;
+import enums.PacketType;
 
 public class PacketTypeFactory {
   public static PacketType createPacketType(short packetTypeValue) {
@@ -15,6 +15,8 @@ public class PacketTypeFactory {
       case 7 -> PacketType.CAR_STATUS;
       case 8 -> PacketType.FINAL_CLASSIFICATION;
       case 9 -> PacketType.LOBBY_INFO;
+      case 10 -> PacketType.CAR_DAMAGE;
+      case 11 -> PacketType.SESSION_HISTORY;
       default -> PacketType.UNKNOWN;
     };
   }

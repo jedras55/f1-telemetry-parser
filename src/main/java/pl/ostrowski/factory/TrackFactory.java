@@ -1,6 +1,6 @@
 package pl.ostrowski.factory;
 
-import pl.ostrowski.enums.Track;
+import enums.Track;
 
 public class TrackFactory {
   public static Track createTrack(short trackValue) {
